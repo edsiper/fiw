@@ -1,0 +1,6 @@
+Fast Image Writer
+=================
+
+This tool aims to perform direct devices data copy as 'dd' but
+with less overhead using the sendfile() Linux system call.
+
