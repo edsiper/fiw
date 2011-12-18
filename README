@@ -1,6 +1,23 @@
 Fast Image Writer
 =================
 
-This tool aims to perform direct devices data copy as 'dd' but
-with less overhead using the sendfile() Linux system call.
+This tool aims to be a faster option than 'dd' when copying image files
+to a char or block devices.
+
+Why ?
+=====
+For some unknown reason, 'dd' is performing very bad in my Linux box, 
+when writing a 3.5G image to a SDHC card (mmcblkX) it tooks like two
+hours to perform it's job. 
+
+This new tool makes sync writes to the device in blocks of 1M through
+the specific Linux system call sendfile(). This syscall have less overhead
+than common read()/write() mechanism and is doing the same work in 6 minutes.
+
+Author
+======
+Eduardo Silva <edsiper@gmail.com>
+
+
+
 
