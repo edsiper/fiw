@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
-/*  FAST DD
- *  -------
+/*  Fast Image Writer
+ *  -----------------
  *  Copyright (C) 2011, Eduardo Silva P. <edsiper@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -47,6 +47,7 @@ struct file_info
 
     short int is_file;
     short int is_link;
+    short int is_char;
     short int is_block;
     short int is_directory;
     short int exec_access;
@@ -102,6 +103,13 @@ struct file_info *file_get_info(const char *path)
     if (S_ISDIR(target.st_mode)) {
         f_info->is_directory = TRUE;
         f_info->is_file = FALSE;
+    }
+
+
+    /* is character device ? */
+    if (S_ISCHR(target.st_mode)) {
+        f_info->is_file = FALSE;
+        f_info->is_char = TRUE;
     }
 
     /* is block device ? */
@@ -164,8 +172,8 @@ int main(int argc, char **argv)
         print_err("Error: source is not a file");
     }
 
-    if (f_target->is_block == FALSE) {
-        //print_err("Error: target must be a block device");
+    if (f_target->is_block == FALSE && f_target->is_char == FALSE) {
+        print_err("Error: target must be a char or block device");
     }
 
     if (f_target->write_access == FALSE) {
