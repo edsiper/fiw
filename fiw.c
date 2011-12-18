@@ -156,7 +156,7 @@ int main(int argc, char **argv)
     struct file_info *f_target;
 
     if (argc < 3) {
-        print_err("Usage: fdd source.img /dev/target_device");
+        print_err("Usage: fiw source.img /dev/target_device");
     }
 
     f_source = file_get_info(argv[1]);
