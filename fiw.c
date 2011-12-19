@@ -74,6 +74,7 @@ struct file_info *file_get_info(const char *path)
 
     /* Stat right resource */
     if (lstat(path, &f) == -1) {
+        free(f_info);
         return NULL;
     }
 
@@ -161,6 +162,15 @@ int main(int argc, char **argv)
 
     f_source = file_get_info(argv[1]);
     f_target = file_get_info(argv[2]);
+
+
+    if (!f_source) {
+        print_err("Error: Invalid source");
+    }
+
+    if (!f_target) {
+        print_err("Error: Invalid target");
+    }
 
     /* Validate read access */
     if (f_source->read_access == FALSE) {
