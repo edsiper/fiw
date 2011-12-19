@@ -14,6 +14,8 @@ This new tool makes sync writes to the device in blocks of 1M through
 the specific Linux system call sendfile(). This syscall have less overhead
 than common read()/write() mechanism and is doing the same work in 6 minutes.
 
+I am not sure what bug exists in 'dd', but this little program save my day.
+
 Author
 ======
 Eduardo Silva <edsiper@gmail.com>
